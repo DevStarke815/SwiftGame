@@ -3,13 +3,15 @@ using System.Collections.Generic;
 
 public class TileManager : MonoBehaviour
 {
+    private float direction = 0;
     public GameObject tilePrefab;
-    public int poolSize = 6;
-    public float tileLength = 20f;
+    public int poolSize = 30;
+    public float tileLength = 30f;
     public Transform player;
 
     private Queue<GameObject> pool = new Queue<GameObject>();
     private float nextSpawnZ = 0f;
+    private float nextSpawnX = 0f;
 
     void Start()
     {
@@ -35,14 +37,39 @@ public class TileManager : MonoBehaviour
         GameObject tile = Instantiate(tilePrefab, transform);
         tile.transform.position = new Vector3(0f, -0.5f, nextSpawnZ);
         pool.Enqueue(tile);
-        nextSpawnZ += tileLength;
+        nextSpawnZ += tileLength*1.5f;
     }
 
     void RecycleTile()
     {
         GameObject tile = pool.Dequeue();
-        tile.transform.position = new Vector3(0f, -0.5f, nextSpawnZ);
-        nextSpawnZ += tileLength;
+        // This will decide which direction to go next
+        int chosenDirection = Random.Range(0,10);
+        //left turn
+        if((chosenDirection<=1)&&(direction>-90))
+        {
+            tile.transform.position = new Vector3(nextSpawnX, -0.5f, nextSpawnZ);
+            tile.transform.rotation = Quaternion.Euler(0, direction-30, 0);
+            direction-=30;
+            nextSpawnZ += tileLength*1.5f;
+        }
+        //turn right
+        else if((chosenDirection<=4)&&(direction<90))
+        {
+            tile.transform.position = new Vector3(nextSpawnX, -0.5f, nextSpawnZ);
+            tile.transform.rotation = Quaternion.Euler(0, direction+30, 0);
+            direction+=30;
+            nextSpawnZ += tileLength*1.5f;
+        }
+        //straight
+        else
+        {
+            tile.transform.position = new Vector3(nextSpawnX, -0.5f, nextSpawnZ);
+            tile.transform.rotation = Quaternion.Euler(0, direction, 0);
+            nextSpawnZ += tileLength*1.5f;
+        }
         pool.Enqueue(tile);
     }
+
+
 }
