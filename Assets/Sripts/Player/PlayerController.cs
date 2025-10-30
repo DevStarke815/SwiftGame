@@ -114,4 +114,3 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, visualTurnLerp * Time.deltaTime);
     }
 }
-
