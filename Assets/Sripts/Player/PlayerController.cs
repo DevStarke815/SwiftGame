@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     [Header("Jump")]
     public float jumpForce = 7f;
     public float gravity = -20f;
-    public float groundY = 0f;
+    public float groundY = -0.5f;
 
     [Header("Steering (car-like)")]
     public float lateralAccel = 20f;        // how hard input accelerates sideways

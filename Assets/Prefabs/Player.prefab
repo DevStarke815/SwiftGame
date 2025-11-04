@@ -128,3 +128,9 @@ MonoBehaviour:
   jumpForce: 7
   gravity: -20
   groundY: 0
+  lateralAccel: 20
+  lateralDrag: 12
+  lateralMaxSpeed: 6
+  yawPerSideSpeed: 3
+  rollPerSideSpeed: 8
+  visualTurnLerp: 8
