@@ -302,12 +302,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 330585543}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c68c95f691ebcc42b860f3d39b45aae, type: 3}
+  m_Script: {fileID: 11500000, guid: 99e661fe091065848af50f80d93ed78d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
+  m_EditorClassIdentifier: Assembly-CSharp::CarChaseCamera
   target: {fileID: 8615764788881585917}
-  offset: {x: 0, y: 2, z: -6}
-  followSpeed: 8
+  localOffset: {x: 0, y: 5, z: -10}
+  lookAhead: 6
+  yawLag: 2
+  positionSmoothTime: 2
+  focusSmoothTime: 2
+  extraRotLerp: 6
+  upLock: 0.509
+  avoidClipping: 1
+  clipMask:
+    serializedVersion: 2
+    m_Bits: 8
+  clipRadius: 0.2
+  clipBuffer: 0.1
 --- !u!1 &373425015
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,8 +1487,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2748729334842600993, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
+      propertyPath: gravity
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2748729334842600993, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
       propertyPath: groundY
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2748729334842600993, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
+      propertyPath: groundMask.m_Bits
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7578753007578791355, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1562,6 +1581,10 @@ PrefabInstance:
     - target: {fileID: 960908414541790897, guid: 4e527aed970e68649a94944067f81e10, type: 3}
       propertyPath: m_Name
       value: GroundTile
+      objectReference: {fileID: 0}
+    - target: {fileID: 960908414541790897, guid: 4e527aed970e68649a94944067f81e10, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2376437103780957168, guid: 4e527aed970e68649a94944067f81e10, type: 3}
       propertyPath: m_LocalPosition.x

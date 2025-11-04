@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 8953570741872888264}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -125,12 +125,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   forwardSpeed: 6
+  maxSteerRate: 120
+  steerAcceleration: 600
+  steerFriction: 0
+  enableJump: 1
   jumpForce: 7
   gravity: -20
   groundY: 0
-  lateralAccel: 20
-  lateralDrag: 12
-  lateralMaxSpeed: 6
-  yawPerSideSpeed: 3
-  rollPerSideSpeed: 8
-  visualTurnLerp: 8
+  rollPerDegPerSec: 0.06
+  visualLerp: 10

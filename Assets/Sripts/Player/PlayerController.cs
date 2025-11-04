@@ -2,115 +2,109 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Forward")]
-    public float forwardSpeed = 6f;
+    [Header("Forward Motion")]
+    [Tooltip("Constant forward speed (units/second)")]
+    public float forwardSpeed = 20f;
 
-    [Header("Jump")]
+    [Header("Steering (car-like, no auto-center)")]
+    [Tooltip("Maximum yaw rate at full input (degrees/second)")]
+    public float maxSteerRate = 120f;
+    [Tooltip("How quickly the steer rate ramps to the target (degrees/second^2)")]
+    public float steerAcceleration = 600f;
+    [Tooltip("Optional friction on steering rate when you release (0 = none)")]
+    public float steerFriction = 0f;
+
+    [Header("Jump / Gravity")]
+    public bool enableJump = true;
     public float jumpForce = 7f;
     public float gravity = -20f;
-    public float groundY = -0.5f;
+    public float groundY = -0.5f;   // your cube center sits at y = 0.5 above this
 
-    [Header("Steering (car-like)")]
-    public float lateralAccel = 20f;        // how hard input accelerates sideways
-    public float lateralDrag = 12f;         // slows lateral velocity when not steering
-    public float lateralMaxSpeed = 6f;      // cap side speed so you can�t whip around
-    //public float autoCenterStrength = 0.5f; // gentle pull back toward X = 0
-    //public float roadHalfWidth = 3.5f;      // soft wall at �this X
-    //public float boundarySpring = 35f;      // push back when you hit the soft wall
-    //public float boundaryDamping = 8f;      // damp bouncing at the wall
+    [Header("Visual Tilt (purely cosmetic)")]
+    public float rollPerDegPerSec = 0.06f; // roll (deg) per deg/s of steer rate
+    public float visualLerp = 10f;
 
-    [Header("Visual Swerve")]
-    public float yawPerSideSpeed = 3f;      // degrees of yaw per unit side speed
-    public float rollPerSideSpeed = 8f;     // degrees of roll per unit side speed
-    public float visualTurnLerp = 8f;       // how fast visuals catch up
-
-    // internals
-    private Vector3 velocity;               // only Y is used for jump/gravity
-    private float sideVel;                  // lateral velocity (X)
+    // --- internals ---
+    private float steerRate;   // current yaw rate (deg/s), integrates into heading
+    private float yaw;         // current yaw angle in degrees
+    private Vector3 velocity;  // only Y is used if jump is enabled
     private bool isGrounded;
+
+    void Start()
+    {
+        // Initialize yaw from current transform so we don't fight existing rotation.
+        yaw = transform.eulerAngles.y;
+        isGrounded = true;
+    }
 
     void Update()
     {
-        HandleInput();
-        ApplyGravity();
-        MovePlayer();
-        ApplyVisualSwerve();
+        float dt = Time.deltaTime;
+
+        // 1) Steering input → steering rate (deg/s), with ramp (no auto-center)
+        float input = Input.GetAxisRaw("Horizontal");  // -1..1 (A/D or arrows)
+        float targetRate = input * maxSteerRate;
+
+        // accelerate steerRate toward targetRate
+        steerRate = Mathf.MoveTowards(steerRate, targetRate, steerAcceleration * dt);
+
+        // optional friction when no input (keeps it from coasting forever if you want)
+        if (Mathf.Approximately(input, 0f) && steerFriction > 0f)
+            steerRate = Mathf.MoveTowards(steerRate, 0f, steerFriction * dt);
+
+        // integrate heading
+        yaw += steerRate * dt;
+
+        // apply heading
+        transform.rotation = Quaternion.Euler(0f, yaw, 0f);
+
+        // 2) Constant forward motion along the car's own forward
+        transform.position += transform.forward * forwardSpeed * dt;
+
+        // 3) Optional jump/gravity
+        if (enableJump)
+        {
+            HandleJumpAndGravity(dt);
+        }
+
+        // 4) Visual tilt based on steering rate (lean into turn)
+        ApplyVisualTilt(dt);
     }
 
-    void HandleInput()
+    void HandleJumpAndGravity(float dt)
     {
-        // Jump
         if (isGrounded && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)))
         {
             velocity.y = jumpForce;
             isGrounded = false;
         }
 
-        // Car-like lateral input
-        float h = Input.GetAxisRaw("Horizontal"); // -1..1
-        float dt = Time.deltaTime;
-
-        // 1) Input adds sideways acceleration
-        sideVel += h * lateralAccel * dt;
-
-        // 2) Gentle auto-center toward X=0
-        //sideVel += -transform.position.x * autoCenterStrength * dt;
-
-        // 3) Drag (reduces side velocity when you stop steering)
-        sideVel = Mathf.MoveTowards(sideVel, 0f, lateralDrag * dt);
-
-        // 4) Cap the lateral speed
-        sideVel = Mathf.Clamp(sideVel, -lateralMaxSpeed, lateralMaxSpeed);
-
-        // 5) Soft boundary spring (keeps you inside �roadHalfWidth)
-        //float x = transform.position.x;
-        //float over = Mathf.Abs(x) - roadHalfWidth;
-        //if (over > 0f)
-        //{
-            // spring force pushes you back toward the road, plus damping against current sideVel
-            //float dir = Mathf.Sign(x); // +1 if right side, -1 if left
-            //float springAccel = -(dir * boundarySpring * over) - (boundaryDamping * sideVel);
-            //sideVel += springAccel * dt;
-        //}
-    }
-
-    void ApplyGravity()
-    {
         if (!isGrounded)
-            velocity.y += gravity * Time.deltaTime;
+            velocity.y += gravity * dt;
 
-        float nextY = transform.position.y + velocity.y * Time.deltaTime;
+        float nextY = transform.position.y + velocity.y * dt;
         if (nextY <= groundY + 0.5f)
         {
             transform.position = new Vector3(transform.position.x, groundY + 0.5f, transform.position.z);
             velocity.y = 0f;
             isGrounded = true;
         }
+        else
+        {
+            transform.position += Vector3.up * (velocity.y * dt);
+        }
     }
 
-    void MovePlayer()
+    void ApplyVisualTilt(float dt)
     {
-        float dt = Time.deltaTime;
+        // roll is proportional to how fast you’re turning (deg/sec)
+        float targetRoll = -steerRate * rollPerDegPerSec; // lean into the turn
+        Quaternion baseYaw = Quaternion.Euler(0f, yaw, 0f);
+        Quaternion roll = Quaternion.Euler(0f, 0f, targetRoll);
+        Quaternion targetRot = baseYaw * roll;
 
-        // forward motion
-        Vector3 forwardMove = Vector3.forward * forwardSpeed * dt;
-
-        // lateral motion from our car-like model
-        Vector3 sideMove = Vector3.right * sideVel * dt;
-
-        // vertical motion from jump/gravity
-        Vector3 verticalMove = velocity * dt;
-
-        transform.Translate(forwardMove + sideMove + verticalMove, Space.World);
-    }
-
-    void ApplyVisualSwerve()
-    {
-        // tilt the cube a bit when it�s sliding sideways (purely visual)
-        float targetYaw = sideVel * yawPerSideSpeed;   // yaw around Y (nose pointing slightly)
-        float targetRoll = -sideVel * rollPerSideSpeed; // roll around Z (lean into turn)
-
-        Quaternion targetRot = Quaternion.Euler(0f, targetYaw, targetRoll);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, visualTurnLerp * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, visualLerp * dt);
+        // Note: this keeps the same yaw; we just blend the roll smoothly for looks.
     }
 }
+

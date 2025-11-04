@@ -23,12 +23,10 @@ public class TileManager : MonoBehaviour
 
     void Update()
     {
-        // check if the backmost tile is behind the player enough to recycle
         GameObject backTile = pool.Peek();
-        if (player.position.z - backTile.transform.position.z > tileLength)
-        {
-            RecycleTile();
-        }
+        Vector3 toPlayer = player.position - backTile.transform.position;
+        float forwardDist = Vector3.Dot(toPlayer, backTile.transform.forward);
+        if (forwardDist > tileLength) RecycleTile();
     }
 
     void SpawnTile()
@@ -55,8 +53,8 @@ public class TileManager : MonoBehaviour
 
         // Decide which direction to go next
         int chosenDirection = UnityEngine.Random.Range(0, 10);
-        if (chosenDirection == 0 && direction > -90) direction -= 30; // left
-        else if (chosenDirection <= 1 && direction < 90) direction += 30; // right
+        if (chosenDirection == 0 && direction > -45) direction -= 15; // left
+        else if (chosenDirection <= 1 && direction < 45) direction += 15; // right
         // straight: direction unchanged
 
         tile.transform.position = nextSpawnPoint;
