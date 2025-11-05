@@ -25,7 +25,8 @@ public class TileManager : MonoBehaviour
     {
         // check if the backmost tile is behind the player enough to recycle
         GameObject backTile = pool.Peek();
-        if (player.position.z - backTile.transform.position.z > tileLength)
+        if ((player.position.z - backTile.transform.position.z > tileLength)||
+            Mathf.Abs(player.position.x) - Mathf.Abs(backTile.transform.position.x) > tileLength)
         {
             RecycleTile();
         }
