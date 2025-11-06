@@ -27,11 +27,13 @@ public class TileManager : MonoBehaviour
     {
         // check if the backmost tile is behind the player enough to recycle
         GameObject backTile = pool.Peek();
-        if ((player.position.z - backTile.transform.position.z > 2*tileLength)||
-            Mathf.Abs(player.position.x) - Mathf.Abs(backTile.transform.position.x) > 2*tileLength)
-        {
-            RecycleTile();
-        }
+        float distance = Vector3.Distance(player.position, backTile.transform.position);
+
+        // If the player is more than a few tiles away, recycle
+        if (distance > 2 * tileLength)
+    {
+        RecycleTile();
+    }
     }
 
     void SpawnTile()
