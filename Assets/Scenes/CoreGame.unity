@@ -1301,6 +1301,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!4 &1400358491 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5720762813043530269, guid: f40e52a0c26735a46b681671fb2baa40, type: 3}
+  m_PrefabInstance: {fileID: 365264563}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1527237605
 GameObject:
   m_ObjectHideFlags: 0
@@ -1761,6 +1766,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8953570741872888264, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8615764788881585922}
+    - targetCorrespondingSourceObject: {fileID: 8953570741872888264, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8615764788881585923}
   m_SourcePrefab: {fileID: 100100000, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
 --- !u!4 &8615764788881585917 stripped
 Transform:
@@ -1782,6 +1790,25 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthBar: {fileID: 2118191815}
+--- !u!114 &8615764788881585923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945571261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 082df22cb9a60184a913212a0049d041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarGun
+  muzzle: {fileID: 1400358491}
+  bulletPrefab: {fileID: 7468774727097107321, guid: d3388b8b9da808a4cb28493715cf3f5a, type: 3}
+  fireRate: 15
+  maxAimDistance: 500
+  aimMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1001 &8903528652720518295
 PrefabInstance:
   m_ObjectHideFlags: 0
