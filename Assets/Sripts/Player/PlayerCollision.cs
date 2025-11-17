@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    public Health health;       // drag your Health script here in Inspector
+    public Health health;      
     public int obstacleDamage = 20;  // damage taken when hitting a car/barrel
 
     void Start()
@@ -32,7 +32,6 @@ public class PlayerCollision : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // If for some reason obstacles use triggers instead of colliders:
         if (other.CompareTag("Obstacle"))
         {
             health.TakeDamage(obstacleDamage);
