@@ -24,13 +24,20 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Player"))
             return;
 
-        // destroy obstacles / enemies by tag
-        //if (other.CompareTag("Obstacle") || other.CompareTag("Enemy"))
-       // {
-           // Destroy(other.gameObject);
-        //}
+        // Ignore potholes completely
+        if (other.CompareTag("Pothole"))
+        {
+            Destroy(gameObject); // bullet still disappears
+            return;
+        }
 
-        // Destroy the bullet on any hit (you can tighten this later)
+        // Destroy barrels and cars
+        if (other.CompareTag("Obstacle"))
+        {
+            Destroy(other.gameObject);
+        }
+
+        // Destroy bullet on any hit
         Destroy(gameObject);
     }
 }
