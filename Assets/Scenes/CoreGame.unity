@@ -1679,6 +1679,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8953570741872888264, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8615764788881585922}
+    - targetCorrespondingSourceObject: {fileID: 8953570741872888264, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8615764788881585927}
   m_SourcePrefab: {fileID: 100100000, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
 --- !u!4 &8615764788881585917 stripped
 Transform:
@@ -1700,6 +1703,37 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   healthBar: {fileID: 2118191815}
+--- !u!114 &8615764788881585923 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2748729334842600993, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
+  m_PrefabInstance: {fileID: 6173611433557870220}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945571261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9ece95659b4414e8ac18e67e0941ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+--- !u!114 &8615764788881585927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945571261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62836788fb2924e46933ca47feeadf1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::helicopterManager
+  PlayerController: {fileID: 8615764788881585923}
+  helicopterPrefab: {fileID: 1577961221389867880, guid: 7cb987bf8e59d6947b731331e1eb36f0, type: 3}
+  bomb: {fileID: 8633890516060456943, guid: 926542057c667c24fa52637c43a9589d, type: 3}
+  helicopter: {fileID: 0}
+  reachedTarget: 0
+  playerTransform: {fileID: 0}
+  bombtimer: 0
+  heliTimer: 0
 --- !u!1001 &8903528652720518295
 PrefabInstance:
   m_ObjectHideFlags: 0
