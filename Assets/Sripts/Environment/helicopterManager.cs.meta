@@ -4,9 +4,12 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - player: {instanceID: 0}
+  - PlayerController: {instanceID: 0}
   - helicopterPrefab: {fileID: 1577961221389867880, guid: 7cb987bf8e59d6947b731331e1eb36f0, type: 3}
-  - bomb: {fileID: 8633890516060456943, guid: 926542057c667c24fa52637c43a9589d, type: 3}
+  - barrelprefab: {fileID: 8633890516060456943, guid: 926542057c667c24fa52637c43a9589d, type: 3}
+  - helicopter: {instanceID: 0}
+  - barrel: {instanceID: 0}
+  - playerTransform: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
