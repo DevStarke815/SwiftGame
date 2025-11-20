@@ -1728,11 +1728,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::helicopterManager
   PlayerController: {fileID: 8615764788881585923}
   helicopterPrefab: {fileID: 1577961221389867880, guid: 7cb987bf8e59d6947b731331e1eb36f0, type: 3}
-  bomb: {fileID: 8633890516060456943, guid: 926542057c667c24fa52637c43a9589d, type: 3}
+  barrelprefab: {fileID: 8633890516060456943, guid: 926542057c667c24fa52637c43a9589d, type: 3}
   helicopter: {fileID: 0}
+  barrelb: {fileID: 0}
   reachedTarget: 0
+  heliSpawned: 0
   playerTransform: {fileID: 0}
-  bombtimer: 0
+  barreltimer: 3
   heliTimer: 0
 --- !u!1001 &8903528652720518295
 PrefabInstance:
