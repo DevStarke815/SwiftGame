@@ -1771,10 +1771,13 @@ PrefabInstance:
       addedObject: {fileID: 8615764788881585922}
     - targetCorrespondingSourceObject: {fileID: 8953570741872888264, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8615764788881585923}
+      addedObject: {fileID: 8615764788881585928}
     - targetCorrespondingSourceObject: {fileID: 8953570741872888264, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8615764788881585928}
+      addedObject: {fileID: 8615764788881585927}
+    - targetCorrespondingSourceObject: {fileID: 8953570741872888264, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8615764788881585930}
   m_SourcePrefab: {fileID: 100100000, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
 --- !u!4 &8615764788881585917 stripped
 Transform:
@@ -1821,22 +1824,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::helicopterManager
   PlayerController: {fileID: 8615764788881585923}
   helicopterPrefab: {fileID: 1577961221389867880, guid: 7cb987bf8e59d6947b731331e1eb36f0, type: 3}
-  bomb: {fileID: 8633890516060456943, guid: 926542057c667c24fa52637c43a9589d, type: 3}
+  barrelprefab: {fileID: 0}
   helicopter: {fileID: 0}
+  barrelb: {fileID: 0}
   reachedTarget: 0
+  heliSpawned: 0
   playerTransform: {fileID: 0}
-  bombtimer: 0
+  barreltimer: 3
   heliTimer: 0
-  m_Script: {fileID: 11500000, guid: 082df22cb9a60184a913212a0049d041, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CarGun
-  muzzle: {fileID: 1400358491}
-  bulletPrefab: {fileID: 7468774727097107321, guid: d3388b8b9da808a4cb28493715cf3f5a, type: 3}
-  fireRate: 15
-  maxAimDistance: 500
-  aimMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &8615764788881585928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1878,6 +1873,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8615764788881585930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945571261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 082df22cb9a60184a913212a0049d041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CarGun
+  muzzle: {fileID: 1400358491}
+  bulletPrefab: {fileID: 7468774727097107321, guid: d3388b8b9da808a4cb28493715cf3f5a, type: 3}
+  fireRate: 15
+  maxAimDistance: 500
+  aimMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1001 &8903528652720518295
 PrefabInstance:
   m_ObjectHideFlags: 0
