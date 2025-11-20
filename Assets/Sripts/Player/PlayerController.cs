@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public float rollPerDegPerSec = 0.06f; // roll (deg) per deg/s of steer rate
     public float visualLerp = 10f;
 
-    // --- internals ---
+    // internals
     private float steerRate;   // current yaw rate (deg/s)
     private float yaw;         // current yaw angle in degrees
     private Vector3 velocity;  // only Y used if jumping
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         float dt = Time.deltaTime;
 
-        // --- 1) Steering input ---
+        // 1) Steering input
         float input = Input.GetAxisRaw("Horizontal"); // A/D or arrows (-1..1)
         float targetRate = input * maxSteerRate;
 
@@ -55,20 +55,21 @@ public class PlayerController : MonoBehaviour
         yaw += steerRate * dt;
         transform.rotation = Quaternion.Euler(0f, yaw, 0f);
 
-        // --- 2) Constant forward motion ---
+        // 2) Constant forward motion
         transform.position += transform.forward * forwardSpeed * dt;
 
-        // --- 3) Optional jump/gravity ---
+        // 3) Optional jump/gravity
         if (enableJump)
             HandleJumpAndGravity(dt);
 
-        // --- 4) Visual tilt based on steering rate (lean into turns) ---
+        // 4) Visual tilt based on steering rate (lean into turns)
         ApplyVisualTilt(dt);
     }
 
     void HandleJumpAndGravity(float dt)
     {
-        if (isGrounded && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)))
+        // Space only for jump now
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             velocity.y = jumpForce;
             isGrounded = false;
@@ -92,7 +93,7 @@ public class PlayerController : MonoBehaviour
 
     void ApplyVisualTilt(float dt)
     {
-        // roll is proportional to how fast you’re turning
+        // roll is proportional to how fast you are turning
         float targetRoll = -steerRate * rollPerDegPerSec; // lean into turn
         Quaternion baseYaw = Quaternion.Euler(0f, yaw, 0f);
         Quaternion roll = Quaternion.Euler(0f, 0f, targetRoll);
