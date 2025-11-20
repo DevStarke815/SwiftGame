@@ -35,8 +35,13 @@ public class Health : MonoBehaviour
     void Die()
     {
         Debug.Log("Player Died!");
-        // later we can call GameManager.GameOver() or play explosion etc.
+
+        // Find the GameManager and trigger Game Over
+        GameManager gm = FindObjectOfType<GameManager>();
+        if (gm != null)
+            gm.GameOver();
     }
+
 
     public void Heal(int amount)
     {
