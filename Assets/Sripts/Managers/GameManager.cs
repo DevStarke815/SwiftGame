@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -10,19 +9,34 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreText;
 
     [Header("Game Over UI")]
-    public GameObject gameOverPanel;      // assign GameOverPanel here
-    public TMP_Text finalScoreText;       // optional: text on panel that shows score
+    public GameObject gameOverPanel;      // GameOverPanel object
+    public TMP_Text finalScoreText;       // optional score text on game over
+
+    [Header("Start UI")]
+    public GameObject startPanel;         // StartPanel object
 
     private float score;
-    private bool isPlaying = true;
+    private bool isPlaying = false;       // false until StartGame is pressed
 
     void Start()
     {
-        // make sure panel is hidden at start
+        // Start in "waiting to start" state
+        isPlaying = false;
+
+        // Show start panel, hide game over panel
+        if (startPanel != null)
+            startPanel.SetActive(true);
+
         if (gameOverPanel != null)
             gameOverPanel.SetActive(false);
 
-        Time.timeScale = 1f;
+        // Pause time until the player presses Start
+        Time.timeScale = 0f;
+
+        // Reset score display
+        score = 0f;
+        if (scoreText != null)
+            scoreText.text = "0";
     }
 
     void Update()
@@ -30,24 +44,40 @@ public class GameManager : MonoBehaviour
         if (!isPlaying) return;
 
         score += Time.deltaTime;
+
         if (scoreText != null)
             scoreText.text = Mathf.FloorToInt(score).ToString();
     }
 
+    // Called by Start button
+    public void StartGame()
+    {
+        if (isPlaying) return;
+
+        isPlaying = true;
+
+        // Hide start panel
+        if (startPanel != null)
+            startPanel.SetActive(false);
+
+        // Resume time
+        Time.timeScale = 1f;
+    }
+
     public void GameOver()
     {
-        if (!isPlaying) return;  // prevent double calls
+        if (!isPlaying) return;
 
         isPlaying = false;
 
-        // stop time so player/car stops moving
+        // Stop time
         Time.timeScale = 0f;
 
-        // show game over UI
+        // Show game over panel
         if (gameOverPanel != null)
             gameOverPanel.SetActive(true);
 
-        // show final score on the panel if you hooked it up
+        // Show final score if desired
         if (finalScoreText != null)
             finalScoreText.text = "Score: " + Mathf.FloorToInt(score).ToString();
     }
