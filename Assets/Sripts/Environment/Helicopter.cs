@@ -76,6 +76,13 @@ public class helicopterManager : MonoBehaviour
         barrelb.transform.localScale = new Vector3(1f, .8f, 1f);
         barrelb.transform.SetParent(null);
         Rigidbody rb = barrelb.GetComponent<Rigidbody>();
+        if (barrelb.GetComponent<CapsuleCollider>() == null)
+        {
+        CapsuleCollider capsule = barrelb.AddComponent<CapsuleCollider>();
+        capsule.height = .8f;
+        capsule.radius = .5f;
+        capsule.direction = 1;
+        }
         if (rb == null)
         {
             rb = barrelb.AddComponent<Rigidbody>();
@@ -83,7 +90,8 @@ public class helicopterManager : MonoBehaviour
         rb.useGravity = true;
         rb.isKinematic = false;
         rb.mass = 1f;
-        rb.AddForce(Vector3.down * 1500f, ForceMode.Acceleration);
+        rb.AddForce(Vector3.down * 2500f, ForceMode.Acceleration);
+        
         Destroy(barrelb, 9f);
     }
 }
