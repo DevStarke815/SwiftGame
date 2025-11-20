@@ -1693,6 +1693,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2748729334842600993, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
+      propertyPath: gravity
+      value: -25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2748729334842600993, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
       propertyPath: groundY
       value: 0.5
       objectReference: {fileID: 0}
@@ -1775,6 +1779,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8953570741872888264, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8615764788881585928}
+    - targetCorrespondingSourceObject: {fileID: 8953570741872888264, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8615764788881585930}
   m_SourcePrefab: {fileID: 100100000, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
 --- !u!4 &8615764788881585917 stripped
 Transform:
@@ -1851,11 +1858,31 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8615764788881585930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945571261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da2ea5dc99ad9c24e9fee29ca322890c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::helicopterManager
+  helicopterPrefab: {fileID: 1577961221389867880, guid: 7cb987bf8e59d6947b731331e1eb36f0, type: 3}
+  barrelprefab: {fileID: 8633890516060456943, guid: 926542057c667c24fa52637c43a9589d, type: 3}
+  helicopter: {fileID: 0}
+  barrelb: {fileID: 0}
+  reachedTarget: 0
+  heliSpawned: 0
+  barreltimer: 3
+  heliTimer: 10
 --- !u!1001 &8903528652720518295
 PrefabInstance:
   m_ObjectHideFlags: 0
