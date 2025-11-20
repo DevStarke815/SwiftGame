@@ -35,8 +35,14 @@ public class Health : MonoBehaviour
     void Die()
     {
         Debug.Log("Player Died!");
-        // later we can call GameManager.GameOver() or play explosion etc.
+
+        // Recommended modern Unity API
+        GameManager gm = Object.FindFirstObjectByType<GameManager>();
+        if (gm != null)
+            gm.GameOver();
     }
+
+
 
     public void Heal(int amount)
     {
