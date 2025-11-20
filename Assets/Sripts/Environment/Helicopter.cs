@@ -74,6 +74,15 @@ public class helicopterManager : MonoBehaviour
         barrelb.transform.SetParent(helicopter.transform);
         barrelb.transform.localScale = new Vector3(1f, .8f, 1f);
         barrelb.transform.SetParent(null);
+        Rigidbody rb = barrelb.GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            rb = barrelb.AddComponent<Rigidbody>();
+        }
+        rb.useGravity = true;
+        rb.isKinematic = false;
+        rb.mass = 1f;
+        rb.AddForce(Vector3.down * 2500f, ForceMode.Acceleration);
         Destroy(barrelb, 9f);
     }
 }
