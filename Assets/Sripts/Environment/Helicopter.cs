@@ -18,6 +18,7 @@ public class helicopterManager : MonoBehaviour
         helicopter = Instantiate(helicopterPrefab, transform.position, Quaternion.identity);
         helicopter.transform.SetParent(transform, false);
         helicopter.transform.position = new Vector3(0, 10, -40); 
+
     }
 
     // Update is called once per frame
@@ -73,7 +74,7 @@ public class helicopterManager : MonoBehaviour
         barrelb = Instantiate(barrelprefab,helicopter.transform.position,  Quaternion.Euler(0f,0f,0f));
         barrelb.transform.SetParent(helicopter.transform);
         barrelb.transform.localScale = new Vector3(1f, .8f, 1f);
-        //barrelb.transform.SetParent(null);
+        barrelb.transform.SetParent(null);
         Rigidbody rb = barrelb.GetComponent<Rigidbody>();
         if (rb == null)
         {
@@ -82,7 +83,7 @@ public class helicopterManager : MonoBehaviour
         rb.useGravity = true;
         rb.isKinematic = false;
         rb.mass = 1f;
-        rb.AddForce(Vector3.down * 2f, ForceMode.Acceleration);
+        rb.AddForce(Vector3.down * 1500f, ForceMode.Acceleration);
         Destroy(barrelb, 9f);
     }
 }

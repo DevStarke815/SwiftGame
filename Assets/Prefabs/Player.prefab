@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7578753007578791355}
   - component: {fileID: 3375421468727271338}
   - component: {fileID: 3064675132537228485}
-  - component: {fileID: 2531969670965693633}
   - component: {fileID: 2748729334842600993}
+  - component: {fileID: -8672953868652732298}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -91,7 +91,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2531969670965693633
+--- !u!114 &2748729334842600993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8953570741872888264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9ece95659b4414e8ac18e67e0941ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  forwardSpeed: 6
+  maxSteerRate: 120
+  steerAcceleration: 600
+  steerFriction: 0
+  enableJump: 0
+  jumpForce: 7
+  gravity: -20
+  groundY: 0
+  rollPerDegPerSec: 0.06
+  visualLerp: 10
+--- !u!65 &-8672953868652732298
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,25 +134,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2748729334842600993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8953570741872888264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee9ece95659b4414e8ac18e67e0941ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  forwardSpeed: 6
-  jumpForce: 7
-  gravity: -20
-  groundY: 0
-  lateralAccel: 20
-  lateralDrag: 12
-  lateralMaxSpeed: 6
-  yawPerSideSpeed: 3
-  rollPerSideSpeed: 8
-  visualTurnLerp: 8

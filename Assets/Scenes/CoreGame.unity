@@ -1768,7 +1768,7 @@ PrefabInstance:
       addedObject: {fileID: 365264564}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8953570741872888264, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
-      insertIndex: 4
+      insertIndex: -1
       addedObject: {fileID: 8615764788881585929}
     - targetCorrespondingSourceObject: {fileID: 8953570741872888264, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
       insertIndex: -1
@@ -1875,12 +1875,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da2ea5dc99ad9c24e9fee29ca322890c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::helicopterManager
-  helicopterPrefab: {fileID: 1577961221389867880, guid: 7cb987bf8e59d6947b731331e1eb36f0, type: 3}
+  helicopterPrefab: {fileID: 5761081538266893192, guid: 833b52f5b8f670c409f8283bc117894f, type: 3}
   barrelprefab: {fileID: 8633890516060456943, guid: 926542057c667c24fa52637c43a9589d, type: 3}
   helicopter: {fileID: 0}
   barrelb: {fileID: 0}
   reachedTarget: 0
-  heliSpawned: 0
+  heliSpawned: 1
   barreltimer: 3
   heliTimer: 10
 --- !u!1001 &8903528652720518295
