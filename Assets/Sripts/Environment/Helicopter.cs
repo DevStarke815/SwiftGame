@@ -82,7 +82,7 @@ public class helicopterManager : MonoBehaviour
         rb.useGravity = true;
         rb.isKinematic = false;
         rb.mass = 1f;
-        rb.AddForce(Vector3.down * 2500f, ForceMode.Acceleration);
+        rb.AddForce(Vector3.down * 2f, ForceMode.Acceleration);
         Destroy(barrelb, 9f);
     }
 }
