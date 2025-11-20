@@ -73,7 +73,7 @@ public class helicopterManager : MonoBehaviour
         barrelb = Instantiate(barrelprefab,helicopter.transform.position,  Quaternion.Euler(0f,0f,0f));
         barrelb.transform.SetParent(helicopter.transform);
         barrelb.transform.localScale = new Vector3(1f, .8f, 1f);
-        barrelb.transform.SetParent(null);
+        //barrelb.transform.SetParent(null);
         Rigidbody rb = barrelb.GetComponent<Rigidbody>();
         if (rb == null)
         {
