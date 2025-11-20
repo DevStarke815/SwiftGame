@@ -36,11 +36,12 @@ public class Health : MonoBehaviour
     {
         Debug.Log("Player Died!");
 
-        // Find the GameManager and trigger Game Over
-        GameManager gm = FindObjectOfType<GameManager>();
+        // Recommended modern Unity API
+        GameManager gm = Object.FindFirstObjectByType<GameManager>();
         if (gm != null)
             gm.GameOver();
     }
+
 
 
     public void Heal(int amount)
