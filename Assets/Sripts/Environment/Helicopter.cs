@@ -17,7 +17,7 @@ public class helicopterManager : MonoBehaviour
     {
         helicopter = Instantiate(helicopterPrefab, transform.position, Quaternion.identity);
         helicopter.transform.SetParent(transform, false);
-        helicopter.transform.position = new Vector3(0, 10, -40); 
+        helicopter.transform.localPosition = new Vector3(0, 10, -40); 
         helicopter.AddComponent<BoxCollider>();
         helicopter.tag = "Obstacle";
         helicopter.layer = LayerMask.NameToLayer("TransparentFX");
@@ -27,16 +27,16 @@ public class helicopterManager : MonoBehaviour
     void Update()
     {
         if(helicopter==null)
-            {
-                heliSpawned = false;
-                reachedTarget = false;
-                helicopter = Instantiate(helicopterPrefab, transform.position, Quaternion.identity);
-                helicopter.transform.SetParent(transform, false);
-                helicopter.transform.position = new Vector3(0, 10, -40); 
-                helicopter.AddComponent<BoxCollider>();
-                helicopter.tag = "Obstacle";
-                helicopter.layer = LayerMask.NameToLayer("TransparentFX");
-            }
+        {
+            heliSpawned = false;
+            reachedTarget = false;
+            helicopter = Instantiate(helicopterPrefab, transform.position, Quaternion.identity);
+            helicopter.transform.SetParent(transform, false);
+            helicopter.transform.localPosition = new Vector3(0, 10, -40); 
+            helicopter.AddComponent<BoxCollider>();
+            helicopter.tag = "Obstacle";
+            helicopter.layer = LayerMask.NameToLayer("TransparentFX");
+        }
         heliTimer-=Time.deltaTime;
         if(heliTimer<=0)
         {
@@ -44,7 +44,6 @@ public class helicopterManager : MonoBehaviour
         if(rand<1)
         {
             heliSpawned = true;
-            helicopter.transform.position = new Vector3(0, 10, -40); 
         }
         else
         {
