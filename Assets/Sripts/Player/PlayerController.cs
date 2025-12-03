@@ -142,12 +142,6 @@ public class PlayerController : MonoBehaviour
     }
 
     // Optional: Visualize the ground check ray in the editor
-    void OnDrawGizmos()
-    {
-        if (Application.isPlaying)
-        {
-            Gizmos.color = isGrounded ? Color.green : Color.red;
-            Gizmos.DrawRay(transform.position, Vector3.down * groundCheckDistance);
-        }
-    }
+    
+    
 }
