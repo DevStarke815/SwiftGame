@@ -92,4 +92,15 @@ public class GameManager : MonoBehaviour
     {
         return isPlaying;
     }
+
+    public void QuitGame()
+    {
+        // In a built game this will close the application.
+        Application.Quit();
+
+        // This makes Quit work inside the Unity Editor for testing.
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+    }
 }
