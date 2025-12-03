@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 178581892813491020}
   - component: {fileID: 6384232395053113561}
   - component: {fileID: 1666159780563400634}
+  - component: {fileID: -1421119556846895888}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -89,3 +90,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-1421119556846895888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5761081538266893192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cdb7395c0b0b3b42b99dd339640a97e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Destructible
+  baseHitsToDestroy: 1
+  scoreValue: 5
