@@ -3,18 +3,16 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [Header("Movement")]
-    public float speed = 80f;      // make this MUCH faster than the car's forwardSpeed
+    public float speed = 80f;      // much faster than the car's forwardSpeed
     public float lifetime = 3f;    // seconds before auto-destroy
 
     void Start()
     {
-        // Auto-destroy even if nothing is hit
         Destroy(gameObject, lifetime);
     }
 
     void Update()
     {
-        // Move along our own forward direction
         transform.position += transform.forward * speed * Time.deltaTime;
     }
 
@@ -24,21 +22,23 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Player"))
             return;
 
-        // Ignore potholes completely
+        // Potholes should not be destroyable
         if (other.CompareTag("Pothole"))
         {
-            Destroy(gameObject); // bullet still disappears
+            Destroy(gameObject);   // bullet disappears, pothole stays
             return;
         }
 
-        // Destroy barrels and cars
-        if (other.CompareTag("Obstacle"))
+        // Check for Destructible on whatever we hit (obstacle, helicopter, etc.)
+        Destructible destructible = other.GetComponent<Destructible>();
+        if (destructible != null)
         {
-            Destroy(other.gameObject);
+            destructible.ApplyHit();
+            Destroy(gameObject);
+            return;
         }
 
-        // Destroy bullet on any hit
+        // Everything else (ground, walls, etc.): just destroy the bullet
         Destroy(gameObject);
     }
 }
-
