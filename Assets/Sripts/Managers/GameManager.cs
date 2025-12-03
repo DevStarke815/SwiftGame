@@ -20,6 +20,13 @@ public class GameManager : MonoBehaviour
     private float score;
     private bool isPlaying = false;       // false until StartGame is pressed
 
+    [Header("Score Popup UI")]
+    public TMP_Text bonusText;            // reference to +5 / +50 text
+    public float bonusPopupTime = 0.5f;   // how long the popup stays visible
+
+    private float bonusTimer = 0f;        // internal timer for fading
+
+
     void Awake()
     {
         // simple singleton pattern; assumes one GameManager in the scene
@@ -56,13 +63,30 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (!isPlaying) return;
+        if (isPlaying)
+        {
+            score += Time.deltaTime;
+            if (scoreText != null)
+                scoreText.text = Mathf.FloorToInt(score).ToString();
+        }
 
-        // time-based score
-        score += Time.deltaTime;
+        // +5 popup fade logic
+        if (bonusText != null && bonusTimer > 0f)
+        {
+            bonusTimer -= Time.deltaTime; // use scaled time
 
-        if (scoreText != null)
-            scoreText.text = Mathf.FloorToInt(score).ToString();
+            // t = 1 -> opaque, t = 0 -> fully invisible
+            float t = bonusTimer / bonusPopupTime;
+
+            Color c = bonusText.color;
+            c.a = Mathf.Clamp01(t);
+            bonusText.color = c;
+
+            if (bonusTimer <= 0f)
+            {
+                bonusText.text = "";
+            }
+        }
     }
 
     // Called by Start button
@@ -116,5 +140,18 @@ public class GameManager : MonoBehaviour
 
         if (scoreText != null)
             scoreText.text = Mathf.FloorToInt(score).ToString();
+
+        // show +amount popup
+        if (bonusText != null && amount > 0)
+        {
+            bonusText.text = "+" + amount;
+
+            Color c = bonusText.color;
+            c.a = 1f;        // fully visible immediately
+            bonusText.color = c;
+
+            bonusTimer = bonusPopupTime;  // restart fade timer
+        }
     }
+
 }
