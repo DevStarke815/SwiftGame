@@ -4,6 +4,8 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;   // singleton-style access
+
     [Header("References")]
     public PlayerController player;
     public TMP_Text scoreText;
@@ -17,6 +19,19 @@ public class GameManager : MonoBehaviour
 
     private float score;
     private bool isPlaying = false;       // false until StartGame is pressed
+
+    void Awake()
+    {
+        // simple singleton pattern; assumes one GameManager in the scene
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -43,6 +58,7 @@ public class GameManager : MonoBehaviour
     {
         if (!isPlaying) return;
 
+        // time-based score
         score += Time.deltaTime;
 
         if (scoreText != null)
@@ -91,5 +107,14 @@ public class GameManager : MonoBehaviour
     public bool IsPlaying()
     {
         return isPlaying;
+    }
+
+    // NEW: add score from things like shooting obstacles
+    public void AddScore(int amount)
+    {
+        score += amount;
+
+        if (scoreText != null)
+            scoreText.text = Mathf.FloorToInt(score).ToString();
     }
 }
