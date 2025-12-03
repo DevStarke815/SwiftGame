@@ -3,8 +3,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [Header("Movement")]
-    public float speed = 80f;
-    public float lifetime = 3f;
+    public float speed = 80f;      // much faster than the car's forwardSpeed
+    public float lifetime = 3f;    // seconds before auto-destroy
 
     void Start()
     {
@@ -18,39 +18,27 @@ public class Bullet : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // Ignore the player
+        // Skip hitting the player
         if (other.CompareTag("Player"))
             return;
 
-        // Potholes cannot be destroyed
+        // Potholes should not be destroyable
         if (other.CompareTag("Pothole"))
         {
-            Destroy(gameObject);
+            Destroy(gameObject);   // bullet disappears, pothole stays
             return;
         }
 
-        // === Helicopter (for future use) ===
-        // When the helicopter enemy exists:
-        // - Tag it "Helicopter"
-        // - Then this will work automatically
-        //if (other.CompareTag("Helicopter"))
-        //{
-            //GameManager.Instance.AddScore(50);   // helicopter is worth +50
-            //Destroy(other.gameObject);
-            //Destroy(gameObject);
-            //return;
-        //}
-
-        // === Destroyable obstacles (barrels, cars) ===
-        if (other.CompareTag("Obstacle"))
+        // Check for Destructible on whatever we hit (obstacle, helicopter, etc.)
+        Destructible destructible = other.GetComponent<Destructible>();
+        if (destructible != null)
         {
-            GameManager.Instance.AddScore(5);    // standard obstacle score
-            Destroy(other.gameObject);
+            destructible.ApplyHit();
             Destroy(gameObject);
             return;
         }
 
-        // === Everything else ===
+        // Everything else (ground, walls, etc.): just destroy the bullet
         Destroy(gameObject);
     }
 }
