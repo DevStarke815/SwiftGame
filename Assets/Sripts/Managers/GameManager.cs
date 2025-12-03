@@ -164,17 +164,6 @@ public class GameManager : MonoBehaviour
         return isPlaying;
     }
 
-    public void QuitGame()
-    {
-        // In a built game this will close the application.
-        Application.Quit();
-
-        // This makes Quit work inside the Unity Editor for testing.
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
-    }
-}
     // Add score from bullets, obstacles, helicopter, etc.
     public void AddScore(int amount)
     {
@@ -199,7 +188,7 @@ public class GameManager : MonoBehaviour
         UpdateDifficulty();
     }
 
-    // Called whenever score changes to see if difficulty level needs to increase
+    // difficulty update based on score (200, 400, 600, ...)
     private void UpdateDifficulty()
     {
         int newLevel = Mathf.FloorToInt(score / scorePerLevel);
@@ -228,5 +217,15 @@ public class GameManager : MonoBehaviour
     public int GetExtraHitsRequired()
     {
         return difficultyLevel * extraHitsPerLevel;
+    }
+
+    // Quit button on start menu
+    public void QuitGame()
+    {
+        Application.Quit();
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }
