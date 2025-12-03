@@ -18,7 +18,14 @@ public class PlayerController : MonoBehaviour
     public bool enableJump = false;
     public float jumpForce = 7f;
     public float gravity = -20f;
-    public float groundY = -0.5f;   // cube center sits 0.5 above this
+    [Tooltip("Distance to check for ground below player")]
+    public float groundCheckDistance = 0.6f;
+    [Tooltip("Layer mask for what counts as ground")]
+    public LayerMask groundLayer = ~0; // everything by default
+
+    [Header("Fall Detection")]
+    [Tooltip("Y position below which player dies")]
+    public float fallThreshold = -10f;
 
     [Header("Visual Tilt (purely cosmetic)")]
     public float rollPerDegPerSec = 0.06f; // roll (deg) per deg/s of steer rate
@@ -29,11 +36,14 @@ public class PlayerController : MonoBehaviour
     private float yaw;         // current yaw angle in degrees
     private Vector3 velocity;  // only Y used if jumping
     private bool isGrounded;
+    private BoxCollider boxCollider;
+    private bool hasDied = false; // prevent multiple death calls
 
     void Start()
     {
         yaw = transform.eulerAngles.y;
         isGrounded = true;
+        boxCollider = GetComponent<BoxCollider>();
     }
 
     void Update()
@@ -64,10 +74,24 @@ public class PlayerController : MonoBehaviour
 
         // 4) Visual tilt based on steering rate (lean into turns)
         ApplyVisualTilt(dt);
+
+        // 5) Check if player has fallen too far
+        if (!hasDied && transform.position.y < fallThreshold)
+        {
+            hasDied = true; // prevent multiple death triggers
+            Health healthComponent = GetComponent<Health>();
+            if (healthComponent != null)
+            {
+                healthComponent.TakeDamage(healthComponent.currentHealth); // instant death
+            }
+        }
     }
 
     void HandleJumpAndGravity(float dt)
     {
+        // Check if there's ground beneath us
+        isGrounded = CheckGrounded();
+
         // Space only for jump now
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
@@ -75,20 +99,31 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
 
+        // Apply gravity when not grounded
         if (!isGrounded)
-            velocity.y += gravity * dt;
-
-        float nextY = transform.position.y + velocity.y * dt;
-        if (nextY <= groundY + 0.5f)
         {
-            transform.position = new Vector3(transform.position.x, groundY + 0.5f, transform.position.z);
-            velocity.y = 0f;
-            isGrounded = true;
+            velocity.y += gravity * dt;
+            transform.position += Vector3.up * (velocity.y * dt);
         }
         else
         {
-            transform.position += Vector3.up * (velocity.y * dt);
+            // Reset vertical velocity when grounded
+            velocity.y = 0f;
         }
+    }
+
+    bool CheckGrounded()
+    {
+        // Raycast downward from the center of the collider
+        Vector3 origin = transform.position;
+        
+        // Cast a ray slightly longer than half the collider height
+        if (Physics.Raycast(origin, Vector3.down, groundCheckDistance, groundLayer))
+        {
+            return true;
+        }
+        
+        return false;
     }
 
     void ApplyVisualTilt(float dt)
@@ -98,12 +133,21 @@ public class PlayerController : MonoBehaviour
         Quaternion baseYaw = Quaternion.Euler(0f, yaw, 0f);
         Quaternion roll = Quaternion.Euler(0f, 0f, targetRoll);
         Quaternion targetRot = baseYaw * roll;
-
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, visualLerp * dt);
     }
     
     public Transform getPlayerTransform()
     {
         return transform;
+    }
+
+    // Optional: Visualize the ground check ray in the editor
+    void OnDrawGizmos()
+    {
+        if (Application.isPlaying)
+        {
+            Gizmos.color = isGrounded ? Color.green : Color.red;
+            Gizmos.DrawRay(transform.position, Vector3.down * groundCheckDistance);
+        }
     }
 }
