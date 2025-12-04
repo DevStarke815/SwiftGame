@@ -1486,7 +1486,7 @@ MonoBehaviour:
   tilePrefab: {fileID: 369661642}
   barrelPrefab: {fileID: 8633890516060456943, guid: 926542057c667c24fa52637c43a9589d, type: 3}
   potholePrefab: {fileID: 4132456546136409395, guid: 97457a0af89ad334eb1fd2de868fb036, type: 3}
-  carPrefab: {fileID: 1577961221389867880, guid: 7cb987bf8e59d6947b731331e1eb36f0, type: 3}
+  carPrefab: {fileID: 8107216940258565315, guid: 7182ffb30b9484b41a6de7d12591d020, type: 3}
   poolSize: 10
   tileLength: 20
   player: {fileID: 8615764788881585917}
