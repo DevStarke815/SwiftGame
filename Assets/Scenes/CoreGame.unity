@@ -2672,7 +2672,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 793bce96532eb424a981c8b4d362156b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.099
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3446,6 +3446,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8672953868652732298, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
+      propertyPath: m_Size.x
+      value: 1.4572968
+      objectReference: {fileID: 0}
+    - target: {fileID: -8672953868652732298, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
+      propertyPath: m_Size.y
+      value: 1.1040219
+      objectReference: {fileID: 0}
+    - target: {fileID: -8672953868652732298, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
+      propertyPath: m_Size.z
+      value: 2.313092
+      objectReference: {fileID: 0}
+    - target: {fileID: -8672953868652732298, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
+      propertyPath: m_Center.x
+      value: 0.051783323
+      objectReference: {fileID: 0}
+    - target: {fileID: -8672953868652732298, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
+      propertyPath: m_Center.y
+      value: 0.020810664
+      objectReference: {fileID: 0}
+    - target: {fileID: -8672953868652732298, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
+      propertyPath: m_Center.z
+      value: 0.031441808
+      objectReference: {fileID: 0}
     - target: {fileID: 2748729334842600993, guid: 76741444510da7140803920fb7bbb4c8, type: 3}
       propertyPath: gravity
       value: -25
@@ -3597,6 +3621,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCollision
   health: {fileID: 0}
   obstacleDamage: 20
+  potholeDamage: 10
 --- !u!54 &8615764788881585929
 Rigidbody:
   m_ObjectHideFlags: 0
