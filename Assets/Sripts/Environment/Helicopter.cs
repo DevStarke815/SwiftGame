@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class helicopterManager : MonoBehaviour
 {
-    public GameObject helicopterPrefab;
+    public GameObject baseHelicopter;
     public GameObject barrelprefab;
     public GameObject helicopter;
     public GameObject barrelb;
@@ -15,12 +15,15 @@ public class helicopterManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        helicopter = Instantiate(helicopterPrefab, transform.position, Quaternion.identity);
-        helicopter.transform.SetParent(transform, false);
-        helicopter.transform.localPosition = new Vector3(0, 10, -40); 
-        helicopter.AddComponent<BoxCollider>();
-        helicopter.tag = "Obstacle";
-        helicopter.layer = LayerMask.NameToLayer("TransparentFX");
+            helicopter=baseHelicopter;
+            heliSpawned = false;
+            reachedTarget = false;
+            helicopter = Instantiate(helicopter, transform.position, Quaternion.identity);
+            helicopter.transform.SetParent(transform, false);
+            helicopter.transform.localPosition = new Vector3(0, 10, -40); 
+            helicopter.tag = "Obstacle";
+            helicopter.layer = LayerMask.NameToLayer("TransparentFX");
+            Animator animator = helicopter.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -28,14 +31,15 @@ public class helicopterManager : MonoBehaviour
     {
         if(helicopter==null)
         {
+            helicopter=baseHelicopter;
             heliSpawned = false;
             reachedTarget = false;
-            helicopter = Instantiate(helicopterPrefab, transform.position, Quaternion.identity);
+            helicopter = Instantiate(helicopter, transform.position, Quaternion.identity);
             helicopter.transform.SetParent(transform, false);
             helicopter.transform.localPosition = new Vector3(0, 10, -40); 
-            helicopter.AddComponent<BoxCollider>();
             helicopter.tag = "Obstacle";
             helicopter.layer = LayerMask.NameToLayer("TransparentFX");
+            Animator animator = helicopter.GetComponent<Animator>();
         }
         heliTimer-=Time.deltaTime;
         if(heliTimer<=0)
@@ -86,7 +90,7 @@ public class helicopterManager : MonoBehaviour
     {
         barrelb = Instantiate(barrelprefab,helicopter.transform.position,  Quaternion.Euler(0f,0f,0f));
         barrelb.transform.SetParent(helicopter.transform);
-        barrelb.transform.localScale = new Vector3(1f, .8f, 1f);
+        barrelb.transform.localScale = new Vector3(100f, 80f, 100f);
         barrelb.transform.SetParent(null);
         Rigidbody rb = barrelb.GetComponent<Rigidbody>();
         if (barrelb.GetComponent<CapsuleCollider>() == null)

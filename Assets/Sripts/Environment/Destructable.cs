@@ -10,7 +10,7 @@ public class Destructible : MonoBehaviour
     [Tooltip("Points awarded when this object is destroyed")]
     public int scoreValue = 5;   // set 5 for obstacles, 50 for helicopter later
 
-    private int hitsRemaining;
+    public int hitsRemaining;
 
     void Start()
     {
